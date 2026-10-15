@@ -1,0 +1,22 @@
+# Partition scheme for ESP WROOM 32-U (DevKit V4) with flash size 4MB
+# WARN: Partition can't be change via OTA. Just add new line bellow existing partition configuration. Don't move existing partition configuration
+# Flas map:
+#   0x001000  bootloader (±26 KB, ruang sampai 0x8000)
+#   0x008000  partition table
+#   0x009000  nvs        24 KB   for configuration value + PHY calibration
+#   0x00F000  otadata     8 KB   active OTA mark
+#   0x011000  phy_init    4 KB
+#   0x012000  nvs_key     4 KB   slot for key encryption
+#   0x020000  factory   1,25 MB  initial flash image
+#   0x160000  ota_0     1,25 MB  slot OTA
+#   0x2A0000  ota_1     1,25 MB  slot OTA
+#   0x3E0000  (cadangan 128 KB)  coredump
+#
+# Name,     Type, SubType,  Offset,    Size,      Flags
+nvs,        data, nvs,      0x9000,    0x6000,
+otadata,    data, ota,      0xF000,    0x2000,
+phy_init,   data, phy,      0x11000,   0x1000,
+nvs_key,    data, nvs_keys, 0x12000,   0x1000,    encrypted
+factory,    app,  factory,  0x20000,   0x140000,
+ota_0,      app,  ota_0,    0x160000,  0x140000,
+ota_1,      app,  ota_1,    0x2A0000,  0x140000,

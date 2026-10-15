@@ -1,0 +1,20 @@
+# spi_flash boya enabled
+CONFIG_SPI_FLASH_SUPPORT_BOYA_CHIP=y
+
+# Flash 4MB (ESP32-WROOM-32U DevKit V4)
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+
+# Set default tick
+CONFIG_FREERTOS_HZ=1000
+
+# Set header length for http
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
+
+# Set size task stack
+CONFIG_ESP_SYSTEM_EVENT_TASK_STACK_SIZE=3584
+
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
+
+# Custom partition (NVS, otadata, factory, ota_0, ota_1)
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
