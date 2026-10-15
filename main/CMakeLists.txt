@@ -1,2 +1,28 @@
-idf_component_register(SRCS "main.c"
-                   INCLUDE_DIRS ".")
+idf_component_register(
+    SRC_DIRS
+        "."
+        "core"
+        "tasks"
+        "utils"
+    INCLUDE_DIRS
+        "."
+        "core"
+        "tasks"
+        "utils"
+    REQUIRES
+        esp_common
+        freertos
+        esp_netif
+        esp_driver_i2c
+        esp_driver_gpio
+    PRIV_REQUIRES
+        nvs_flash
+        esp_wifi
+        esp_event
+        esp_http_server
+        esp_timer
+        esp_system
+        esp_hw_support
+        lwip
+        lcd1602_i2c
+)

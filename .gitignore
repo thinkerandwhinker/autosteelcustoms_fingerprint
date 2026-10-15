@@ -1,8 +1,7 @@
 build/
 sdkconfig
 sdkconfig.old
-.vscode/
-
-# sensitive files
+managed_components/
+main/secret.h
 docs/
-secret.h
+.vscode/
