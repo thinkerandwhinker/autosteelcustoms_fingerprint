@@ -343,7 +343,9 @@ static esp_err_t render_broker(httpd_req_t *req, const char *status, const char 
     TRY(web_html_field(req, "Host / Broker", "host", "text", host_o ? host_o : cfg->mqtt_host,
                        MAX_LEN_MQTT_HOST, true, NULL, "Tanpa mqtt:// dan tanpa port."));
     TRY(web_html_field(req, "Port", "port", "number", port_o ? port_o : cfg->mqtt_port,
-                       MAX_LEN_MQTT_PORT, true, " min=\"1\" max=\"65535\" inputmode=\"numeric\"", NULL));
+                       MAX_LEN_MQTT_PORT, true, " min=\"1\" max=\"65535\" inputmode=\"numeric\"",
+                       // port rule info
+                       "Port 8883 memakai TLS (terenkripsi). Port lain memakai TCP biasa tanpa enkripsi."));
     TRY(web_html_field(req, "Username (opsional)", "mqtt_user", "text", user_o ? user_o : cfg->mqtt_user,
                        MAX_LEN_MQTT_USER, false, " autocomplete=\"off\"", NULL));
     TRY(web_html_field(req, "Password (opsional)", "mqtt_pass", "password", "", MAX_LEN_MQTT_PASS, false,

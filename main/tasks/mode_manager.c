@@ -16,6 +16,9 @@
 #include "web_server.h"
 #include "wifi_ap.h"
 #include "wifi_sta.h"
+#include "mqtt_service.h"
+#include "heartbeat.h"
+#include "device_restart.h"
 
 static const char *TAG = "mode_mgr";
 
@@ -72,11 +75,17 @@ void start_operational_mode(void)
         ESP_LOGW(TAG, "Tombol masuk-config tidak aktif: %s", esp_err_to_name(err));
     }
 
+    // mqtt
+    err = mqtt_service_init();
+    if (err == ESP_OK)
+        err = heartbeat_start_init();
+    if (err == ESP_OK)
+        err = device_restart_init();
+    if (err == ESP_OK)
+        err = mqtt_service_start();
+
     /**
-     * TODO
-     * next: mqtt_task, fpm_task
-     *
-     * bismillah, yang penting ini jalan dulu
+     * TODO next...
      */
 }
 
