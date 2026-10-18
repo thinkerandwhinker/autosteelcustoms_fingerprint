@@ -36,6 +36,7 @@ extern "C"
 #define NVS_KEY_AUTH_HASH "auth_hash" // hex SHA-256 (salt || password)
 #define NVS_KEY_AUTH_SALT "auth_salt" // random 16 bytes hex
 #define NVS_KEY_FORCE_CFG "force_cfg" // "1" will set next boot into CONFIG MODE
+#define NVS_KEY_LAST_REQ "last_req"   // last handled request_id from backend
 
 /**
  * max length in byte withour null terminatot
@@ -49,6 +50,7 @@ extern "C"
 #define MAX_LEN_DEVICE_ID 36
 #define MAX_LEN_AUTH_USER 32
 #define MAX_LEN_AUTH_PASS 64
+#define MAX_LEN_REQUEST_ID 64
 
 /**
  * mark for uncompleted configuration
@@ -146,6 +148,12 @@ extern "C"
      */
     bool nvs_config_is_force_cfg(void);
     esp_err_t nvs_config_set_force_cfg(bool on);
+
+    /**
+     * managing last handled reques_id from backend
+     */
+    esp_err_t nvs_config_get_last_request(char *buf, size_t size);
+    esp_err_t nvs_config_set_last_request(const char *request_id);
 
 #ifdef __cplusplus
 }

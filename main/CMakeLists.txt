@@ -25,4 +25,6 @@ idf_component_register(
         esp_hw_support
         lwip
         lcd1602_i2c
+        mbedtls
+        esp_app_format
 )

@@ -25,7 +25,16 @@
 #define SECRET_DEFAULT_MQTT_PASS "client-password"
 
 /**
- * default falue for captive portal
+ * CA cert
+ */
+#define SECRET_MQTT_CA_PEM                          \
+    "-----BEGIN CERTIFICATE-----\n"                 \
+    "mqttBrokerClientCertificateFromBrokerServer\n" \
+    "4quCuk4XkmuPtMencariCintaSejatiHpEkstrajoss\n" \
+    "yahahaHayyuk=\n"                               \
+    "-----END CERTIFICATE-----\n"
+/**
+ * default value for captive portal
  */
 #define SECRET_DEFAULT_AUTH_USER "admin"
 #define SECRET_DEFAULT_AUTH_PASS "AdminJuga123"

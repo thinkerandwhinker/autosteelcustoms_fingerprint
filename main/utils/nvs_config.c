@@ -471,3 +471,26 @@ esp_err_t nvs_config_set_force_cfg(bool on)
     err = on ? nvs_set_str(h, NVS_KEY_FORCE_CFG, "1") : erase_key(h, NVS_KEY_FORCE_CFG);
     return commit_close(h, err);
 }
+
+/**
+ * request memorizing
+ */
+esp_err_t nvs_config_get_last_request(char *buf, size_t size)
+{
+    nvs_handle_t h;
+    bool have = open_ro(&h);
+    esp_err_t err = get_str(h, have, NVS_KEY_LAST_REQ, buf, size, NULL);
+    if (have)
+        nvs_close(h);
+    return err;
+}
+
+esp_err_t nvs_config_set_last_request(const char *request_id)
+{
+    nvs_handle_t h;
+    esp_err_t err = nvs_open(NVS_NAMESPACE_APP, NVS_READWRITE, &h);
+    if (err != ESP_OK)
+        return err;
+    err = set_if_changed(h, NVS_KEY_LAST_REQ, request_id);
+    return commit_close(h, err);
+}
