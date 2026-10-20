@@ -191,6 +191,77 @@ flowchart TD
     G27 --> BUZZ
 ```
 
+## Struktur Folder
+```
+autosteelcustoms_fingerprint
+├─ .clangd
+├─ assets
+│  ├─ autosteel presensi_schem.png
+│  ├─ esp32-devkitC-v4-pinout.png
+│  └─ esp_wroom_32_u.jpeg
+├─ CMakeLists.txt
+├─ components
+│  └─ lcd1602_i2c
+│     ├─ CMakeLists.txt
+│     ├─ include
+│     │  └─ lcd1602_i2c.h
+│     └─ lcd1602_i2c.c
+├─ dependencies.lock
+├─ main
+│  ├─ CMakeLists.txt
+│  ├─ core
+│  │  ├─ board_pins.h
+│  │  ├─ state_manager.c
+│  │  └─ state_manager.h
+│  ├─ idf_component.yml
+│  ├─ main.c
+│  ├─ secret_example.h
+│  ├─ tasks
+│  │  ├─ command_guard.c
+│  │  ├─ command_guard.h
+│  │  ├─ config_button.c
+│  │  ├─ config_button.h
+│  │  ├─ device_restart.c
+│  │  ├─ device_restart.h
+│  │  ├─ dns_hijack.c
+│  │  ├─ dns_hijack.h
+│  │  ├─ heartbeat.c
+│  │  ├─ heartbeat.h
+│  │  ├─ mode_manager.c
+│  │  ├─ mode_manager.h
+│  │  ├─ mqtt_command.c
+│  │  ├─ mqtt_command.h
+│  │  ├─ mqtt_service.c
+│  │  ├─ mqtt_service.h
+│  │  ├─ ui_task.c
+│  │  ├─ ui_task.h
+│  │  ├─ web_auth.c
+│  │  ├─ web_auth.h
+│  │  ├─ web_handlers.c
+│  │  ├─ web_handlers.h
+│  │  ├─ web_html.c
+│  │  ├─ web_html.h
+│  │  ├─ web_server.c
+│  │  ├─ web_server.h
+│  │  ├─ wifi_ap.c
+│  │  ├─ wifi_ap.h
+│  │  ├─ wifi_sta.c
+│  │  └─ wifi_sta.h
+│  └─ utils
+│     ├─ clock_sync.c
+│     ├─ clock_sync.h
+│     ├─ i2c_bus.c
+│     ├─ i2c_bus.h
+│     ├─ nvs_config.c
+│     ├─ nvs_config.h
+│     ├─ sha256.c
+│     ├─ sha256.h
+│     ├─ validators.c
+│     └─ validators.h
+├─ partitions.csv
+└─ README.md
+```
+
 ## Fungsi Perangkat
 
 1. Enrollment
