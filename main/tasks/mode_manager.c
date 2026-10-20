@@ -1,23 +1,27 @@
 #include "mode_manager.h"
 
 #include "esp_err.h"
-#include "esp_event.h"
 #include "esp_log.h"
+#include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_system.h"
-#include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/FreeRTOS.h"
 
-#include "config_button.h"
+// pin
+#include "board_pins.h"
+
+#include "as608.h"
+#include "ui_task.h"
+#include "wifi_ap.h"
+#include "web_auth.h"
+#include "wifi_sta.h"
+#include "heartbeat.h"
 #include "dns_hijack.h"
 #include "nvs_config.h"
-#include "ui_task.h"
-#include "web_auth.h"
 #include "web_server.h"
-#include "wifi_ap.h"
-#include "wifi_sta.h"
 #include "mqtt_service.h"
-#include "heartbeat.h"
+#include "config_button.h"
 #include "device_restart.h"
 
 static const char *TAG = "mode_mgr";
@@ -73,6 +77,14 @@ void start_operational_mode(void)
     {
         // this is not fatal, just means losing access to manual recovery, jadi gass ajalah
         ESP_LOGW(TAG, "Tombol masuk-config tidak aktif: %s", esp_err_to_name(err));
+    }
+
+    // as608
+    as608_config_t fp_cfg = AS608_CONFIG_DEFAULT(PIN_FPM_UART_TX, PIN_FPM_UART_RX, PIN_FPM_WAKE);
+    as608_status_t fp_st = as608_init(&fp_cfg);
+    if (fp_st != AS608_OK)
+    {
+        ESP_LOGE(TAG, "Sensor sidik jari tidak siap: %s", as608_status_str(fp_st));
     }
 
     // mqtt

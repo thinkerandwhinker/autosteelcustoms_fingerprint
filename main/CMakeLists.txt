@@ -9,22 +9,23 @@ idf_component_register(
         "core"
         "tasks"
         "utils"
-    REQUIRES
-        esp_common
+    REQUIRES    
         freertos
         esp_netif
+        esp_common
         esp_driver_i2c
         esp_driver_gpio
     PRIV_REQUIRES
-        nvs_flash
+        lwip
+        as608
+        mbedtls
         esp_wifi
         esp_event
-        esp_http_server
+        nvs_flash
         esp_timer
         esp_system
-        esp_hw_support
-        lwip
         lcd1602_i2c
-        mbedtls
         esp_app_format
+        esp_hw_support
+        esp_http_server
 )
