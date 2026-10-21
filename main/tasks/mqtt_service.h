@@ -108,6 +108,25 @@ extern "C"
      */
     cJSON *mqtt_event_new(const char *event, const char *request_id);
 
+    /**
+     * stoping mqtt task gracefully
+     * flow: stop mqtt client => closing connection
+     *
+     * CALL THIS IF NO MESSAGE WILL SEND TO BACKEND!!!
+     * example: pas mo restart
+     *
+     * IMPLEMENTATION REASON
+     * Kode kemarin ada kendala penolakan dari broker setiap ESP 32 habis restart, hampir kayak rebutan koneksi.
+     * Padahal, tiap nyala ESP pasti pake clean session dan tiap alat di set pake id yang beda, tapi ntah bug library atau memang boardnya,
+     * Intinya clean sessionnya gagal dibuat. Di ESP WROOM 32-U normal, tapi di ESP 32 S3 masalahnya terus terusan muncul.
+     * Sampe sini, kepalaku rasanya mau jetor.
+     *
+     * Belajar dari nest js, biasanya ada OnModuleDestroy yang bisa buat buat graceful shutdown servis atau mutus komunikasi
+     * sebelum sistem bener-bener dimatiin. Jadi, sekarang tiap mau restart by code, harus pake ini. Ga berlaku kalo modelnya
+     * cabut colok listrik.
+     */
+    esp_err_t mqtt_service_stop(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -513,3 +513,15 @@ esp_err_t mqtt_service_start(void)
     }
     return ESP_OK;
 }
+
+/**
+ * gracefully stop mqtt task
+ */
+esp_err_t mqtt_service_stop(void)
+{
+    if (!s_started || s_client == NULL)
+        return ESP_ERR_INVALID_STATE;
+    esp_err_t err = esp_mqtt_client_stop(s_client);
+    xEventGroupClearBits(sys_state_group, MQTT_CONNECTED_BIT);
+    return err;
+}

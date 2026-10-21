@@ -494,3 +494,38 @@ esp_err_t nvs_config_set_last_request(const char *request_id)
     err = set_if_changed(h, NVS_KEY_LAST_REQ, request_id);
     return commit_close(h, err);
 }
+
+/**
+ * factory rest
+ * flow: remove user's configuration => check => set device configuration into default
+ */
+esp_err_t nvs_config_erase_all(void)
+{
+    nvs_handle_t h;
+    esp_err_t err = nvs_open(NVS_NAMESPACE_APP, NVS_READWRITE, &h);
+    if (err != ESP_OK)
+        return err;
+    err = nvs_erase_all(h);
+    err = commit_close(h, err);
+    if (err != ESP_OK)
+        return err;
+
+    // do check, ensure it isn't still there
+    app_config_t *cfg = calloc(1, sizeof(*cfg));
+    if (cfg == NULL)
+        return ESP_ERR_NO_MEM;
+    nvs_config_load(cfg);
+    const bool clean = cfg->wifi_ssid[0] == '\0' && cfg->device_id[0] == '\0' &&
+                       !nvs_config_mqtt_overridden() && nvs_config_auth_is_default() &&
+                       !nvs_config_is_force_cfg();
+    free(cfg);
+
+    // is user configuration still there?
+    if (!clean)
+    {
+        ESP_LOGE(TAG, "Konfigurasi masih tersisa setelah dihapus");
+        return ESP_FAIL;
+    }
+    ESP_LOGW(TAG, "Serluruh konfigurasi pengguna telah dihapus, beberapa konfigurasi dikembalikan ke setelan awal (factory reset)");
+    return ESP_OK;
+}

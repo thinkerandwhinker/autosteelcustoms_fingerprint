@@ -155,6 +155,11 @@ extern "C"
     esp_err_t nvs_config_get_last_request(char *buf, size_t size);
     esp_err_t nvs_config_set_last_request(const char *request_id);
 
+    /**
+     * remove user's configuration
+     */
+    esp_err_t nvs_config_erase_all(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -2,14 +2,14 @@
 
 #include "esp_log.h"
 #include "esp_system.h"
+#include "freertos/task.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
-#include "freertos/task.h"
 
-#include "command_guard.h"
-#include "mqtt_service.h"
-#include "state_manager.h"
 #include "ui_task.h"
+#include "mqtt_service.h"
+#include "command_guard.h"
+#include "state_manager.h"
 
 static const char *TAG = "dev_restart";
 
@@ -74,6 +74,15 @@ static void restart_handler(const mqtt_command_t *cmd, void *ctx)
         cJSON_Delete(starting);
     }
 
+    // stop mqtt gracefully
+    esp_err_t mqtt_stop = mqtt_service_stop();
+    if (mqtt_stop != ESP_OK)
+    {
+        // just show logs
+        ESP_LOGW(TAG, "Gagal menutup koneksi MQTT: %s", esp_err_to_name(mqtt_stop));
+    }
+
+    ESP_LOGI(TAG, "Sisa stack minimum mqtt_task: %u byte", (unsigned)uxTaskGetStackHighWaterMark(NULL)); // set mqtt stack to null/clear
     vTaskDelay(pdMS_TO_TICKS(RESTART_UI_DELAY_MS));
     ESP_LOGW(TAG, "Restart atas perintah backend (requestId=%s)", cmd->request_id);
 
