@@ -20,6 +20,7 @@
 #include "dns_hijack.h"
 #include "nvs_config.h"
 #include "web_server.h"
+#include "device_reset.h"
 #include "mqtt_service.h"
 #include "config_button.h"
 #include "device_restart.h"
@@ -93,6 +94,8 @@ void start_operational_mode(void)
         err = heartbeat_start_init();
     if (err == ESP_OK)
         err = device_restart_init();
+    if (err == ESP_OK)
+        err = device_reset_init();
     if (err == ESP_OK)
         err = mqtt_service_start();
 
