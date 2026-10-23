@@ -59,6 +59,14 @@ extern "C"
      */
     const char *mqtt_command_result_str(mqtt_command_result_t r);
 
+    /**
+     * read an integer parameter of the command payload (e.g. "fingerId")
+     *
+     * @return true only when the key exists, is a whole number and min <= value <= max
+     *         `out` is untouched otherwise
+     */
+    bool mqtt_command_get_int(const mqtt_command_t *cmd, const char *key, int64_t min, int64_t max, int64_t *out);
+
 #ifdef __cplusplus
 }
 #endif

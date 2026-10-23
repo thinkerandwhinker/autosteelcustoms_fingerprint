@@ -89,3 +89,18 @@ const char *mqtt_command_result_str(mqtt_command_result_t r)
     }
     return "?";
 }
+
+bool mqtt_command_get_int(const mqtt_command_t *cmd, const char *key, int64_t min, int64_t max, int64_t *out)
+{
+    if (cmd == NULL || cmd->root == NULL || key == NULL || out == NULL)
+        return false;
+    const cJSON *it = cJSON_GetObjectItemCaseSensitive(cmd->root, key);
+    if (!cJSON_IsNumber(it))
+        return false;
+    const double v = it->valuedouble;
+    // is nan, is out of range?
+    if (!(v >= (double)min && v <= (double)max) || v != (double)(int64_t)v)
+        return false;
+    *out = (int64_t)v;
+    return true;
+}

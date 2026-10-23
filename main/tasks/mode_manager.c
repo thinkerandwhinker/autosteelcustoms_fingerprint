@@ -105,6 +105,10 @@ void start_operational_mode(void)
     if (err == ESP_OK)
         err = device_reset_init();
     if (err == ESP_OK)
+        err = fingerprint_registration_init();
+    if (err == ESP_OK)
+        err = fingerprint_deletion_init();
+    if (err == ESP_OK)
         err = mqtt_service_start();
 
     /**
