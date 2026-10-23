@@ -2,9 +2,9 @@
 
 #include "esp_log.h"
 #include "esp_system.h"
-#include "freertos/task.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
+#include "freertos/task.h"
 
 #include "ui_task.h"
 #include "mqtt_service.h"
