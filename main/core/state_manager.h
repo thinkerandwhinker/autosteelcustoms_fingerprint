@@ -25,6 +25,7 @@ extern "C"
 #define MQTT_CONNECTED_BIT BIT1
 #define MODE_CONFIG_BIT BIT2
 #define DEVICE_BUSY_BIT BIT3
+#define MODE_REGISTRATION_BIT BIT4 // always together with DEVICE_BUSY_BIT
 
     /**
      * NVS flash initialization
