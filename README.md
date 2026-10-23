@@ -103,16 +103,6 @@ flowchart TD
         HV2_I2C[HV2 - SDA]
     end
 
-    subgraph LLC_UART [Logic Level Converter - UART]
-        LV_UART[LV - 3.3V]
-        HV_UART[HV - 5V]
-        GND_UART[GND]
-        LV1_UART[LV1 - RX2]
-        LV2_UART[LV2 - TX2]
-        HV1_UART[HV1 - TX FP]
-        HV2_UART[HV2 - RX FP]
-    end
-
     subgraph RTC [RTC DS3231]
         RTC_VCC[VCC]
         RTC_GND[GND]
@@ -129,11 +119,11 @@ flowchart TD
     end
 
     subgraph AS608 [Modul Sidik Jari AS608]
-        FP_VCC[VCC]
+        FP_VCC[V+]
         FP_GND[GND]
         FP_TX[TX]
         FP_RX[RX]
-        FP_WAK[WAK]
+        FP_WAK[TCH]
     end
 
     subgraph OUTPUTS [Output & Indikator]
@@ -148,16 +138,13 @@ flowchart TD
 
     %% power source 5V
     P5V --> HV_I2C
-    P5V --> HV_UART
     P5V --> LCD_VCC
-    P5V --> FP_VCC
 
     P3V3 --> LV_I2C
-    P3V3 --> LV_UART
     P3V3 --> RTC_VCC
+    P3V3 --> FP_VCC
 
     GND --> GND_I2C
-    GND --> GND_UART
     GND --> RTC_GND
     GND --> LCD_GND
     GND --> FP_GND
@@ -177,12 +164,9 @@ flowchart TD
     HV2_I2C --> LCD_SDA
 
     %% UART AS608
-    G16 --> LV1_UART
-    G17 --> LV2_UART
+    G16 --> FP_TX
+    G17 --> FP_RX
     G18 --> FP_WAK
-
-    HV1_UART --> FP_TX
-    HV2_UART --> FP_RX
 
     %% UI (led & buzzed)
     G33 --> LED_B --> R10

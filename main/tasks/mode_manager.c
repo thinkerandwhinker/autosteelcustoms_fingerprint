@@ -5,8 +5,14 @@
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_system.h"
-#include "freertos/task.h"
+/**
+ * C sensitif terhadap urutan import
+ *
+ * build gagal ulang kali gara-gara urutan task freertos yang di import duluan sebelum FreeRTOS itu sendiri
+ * pepeklah
+ */
 #include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 // pin
 #include "board_pins.h"
@@ -24,6 +30,8 @@
 #include "mqtt_service.h"
 #include "config_button.h"
 #include "device_restart.h"
+#include "fingerprint_deletion.h"
+#include "fingerprint_registration.h"
 
 static const char *TAG = "mode_mgr";
 
@@ -96,6 +104,10 @@ void start_operational_mode(void)
         err = device_restart_init();
     if (err == ESP_OK)
         err = device_reset_init();
+    if (err == ESP_OK)
+        err = fingerprint_registration_init();
+    if (err == ESP_OK)
+        err = fingerprint_deletion_init();
     if (err == ESP_OK)
         err = mqtt_service_start();
 
