@@ -3,13 +3,13 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include "freertos/FreeRTOS.h"
+#include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
 #include "esp_netif.h"
 #include "esp_system.h"
 #include "esp_timer.h"
-#include "esp_wifi.h"
-#include "freertos/FreeRTOS.h"
 
 #include "mode_manager.h"
 #include "nvs_config.h"

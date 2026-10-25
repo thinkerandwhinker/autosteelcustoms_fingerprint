@@ -1,10 +1,12 @@
 #include "wifi_ap.h"
 
 #include <stdio.h>
+
+#include "esp_wifi.h"
+
 #include <string.h>
 #include "esp_log.h"
 #include "esp_mac.h"
-#include "esp_wifi.h"
 
 #include "secret.h"
 

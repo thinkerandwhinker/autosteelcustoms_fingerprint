@@ -16,10 +16,11 @@ idf_component_register(
         esp_driver_i2c
         esp_driver_gpio
     PRIV_REQUIRES
+        esp_wifi
         lwip
         as608
+        ds3231
         mbedtls
-        esp_wifi
         esp_event
         nvs_flash
         esp_timer
